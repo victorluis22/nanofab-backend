@@ -57,7 +57,7 @@ class userController {
 	}
 
 	async read(req, res) {
-		db.query("Select * FROM user", (err, result) => {
+		db.query("SELECT * FROM user", (err, result) => {
 			if (err) {
 				return res.status(500).send(err);
 			}
@@ -81,45 +81,36 @@ class userController {
 
 		const { id } = req.params;
 
+		const hashPassword = await createPasswordHash(password);
+
 		db.query(
-			"Select * FROM user WHERE CodUser = ?",
-			[id],
-			async (err, result) => {
+			`UPDATE user SET Name=?, Email=?, Password=?, Phone=?, PhoneBranch=?, Advisor=?, Institute=?, InstituteType=?, CodRole=? WHERE CodUser=?`,
+			[
+				name,
+				email,
+				hashPassword,
+				phone,
+				phoneBranch,
+				advisor,
+				institute,
+				instituteType,
+				role,
+				id,
+			],
+			(err, result) => {
 				if (err) {
-					return res.send(err);
+					return res.status(500).send(err);
 				}
-				if (result.length === 0) {
-					return res
-						.status(404)
-						.json({ message: "Nenhum usuário encontrado com esse id." });
-				} else {
-					const hashPassword = await createPasswordHash(password);
 
-					db.query(
-						`UPDATE user SET Name=?, Email=?, Password=?, Phone=?, PhoneBranch=?, Advisor=?, Institute=?, InstituteType=?, CodRole=? WHERE CodUser=?`,
-						[
-							name,
-							email,
-							hashPassword,
-							phone,
-							phoneBranch,
-							advisor,
-							institute,
-							instituteType,
-							role,
-							id,
-						],
-						(err, result) => {
-							if (err) {
-								return res.status(500).send(err);
-							}
-
-							return res
-								.status(200)
-								.json({ message: "Usuário atualizado com sucesso!" });
-						}
-					);
+				if (result.affectedRows === 0) {
+					return res.status(404).json({
+						message: "Nenhum agendamento encontrado com esse id.",
+					});
 				}
+
+				return res
+					.status(200)
+					.json({ message: "Usuário atualizado com sucesso!" });
 			}
 		);
 	}

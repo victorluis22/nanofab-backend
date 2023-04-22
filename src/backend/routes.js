@@ -17,8 +17,8 @@ routes.delete("/user/:id", userController.delete);
 
 routes.post("/schedule", scheduleController.create);
 routes.get("/schedules", scheduleController.read);
-routes.put('/user/:id', scheduleController.update)
-routes.delete("/user/:id", scheduleController.delete);
+routes.put('/schedule/:id', scheduleController.update)
+routes.delete("/schedule/:id", scheduleController.delete);
 
 
 // routes.use(auth)
