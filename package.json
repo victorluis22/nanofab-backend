@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev-server": "nodemon ./src/backend/server.js",
-    "start": "node ./src/backend/server.js"
+    "dev-server": "nodemon ./src/server.js",
+    "start": "node ./src/server.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
