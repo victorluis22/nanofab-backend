@@ -7,7 +7,12 @@ import scheduleController from "./controllers/scheduleController.js";
 
 const routes = Router();
 
+const test = async (req, res) => {
+    return res.status(200).json({message: "Ola mundo"})
+}
+
 //RESTFull
+routes.get("/", test)
 routes.post("/login", sessionsController.create);
 
 routes.post("/user", userController.create);
