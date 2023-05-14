@@ -5,5 +5,5 @@ export const createPasswordHash = async (password) =>{
 }
 
 export const checkPassword = async (user, password) => {
-    return await bcrypt.compare(password, user.password)
+    return await bcrypt.compare(password, user.Password)
 }

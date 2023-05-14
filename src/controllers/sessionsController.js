@@ -23,15 +23,15 @@ class sessionControler{
                     return res.status(401).json({error: "Password invalid."})
                 }
 
-                const { idUser, name } = user
+                const { CodUser, Name, Email } = user
 
                 return res.json({
                     user: {
-                        idUser,
-                        email,
-                        name,
+                        CodUser,
+                        Email,
+                        Name,
                     },
-                    token: Jwt.sign({ idUser }, authConfig.secret, {
+                    token: Jwt.sign({ CodUser }, authConfig.secret, {
                         expiresIn: authConfig.expiresIn
                     })
                 })
